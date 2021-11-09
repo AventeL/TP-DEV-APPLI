@@ -7,3 +7,5 @@ typedef struct noeud{
     struct noeud *right;
     struct noeud *left;
 }Noeud;
+
+typedef Noeud * Arbre
