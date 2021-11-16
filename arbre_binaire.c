@@ -10,4 +10,4 @@ typedef struct noeud{
     struct noeud *left;
 }Noeud;
 
-typedef Noeud * Arbre
+typedef Noeud * Arbre;
