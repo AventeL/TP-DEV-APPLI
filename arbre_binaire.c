@@ -11,3 +11,15 @@ typedef struct noeud{
 }Noeud;
 
 typedef Noeud * Arbre;
+
+Arbre creerNoeud(int id, int numero, char *nom, char *prenom) {
+    Arbre nouveau = (Arbre) malloc(sizeof(Noeud));
+    if (nouveau) {
+        nouveau->id = id;
+        nouveau->numero = numero;
+        nouveau->nom = nom;
+        nouveau->prenom = prenom;
+        nouveau->right = nouveau->left = NULL;
+    }
+    return nouveau;
+}
