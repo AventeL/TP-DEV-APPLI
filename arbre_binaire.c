@@ -23,3 +23,17 @@ Arbre creerNoeud(int id, int numero, char *nom, char *prenom) {
     }
     return nouveau;
 }
+
+Arbre inserer(int id, int numero, char *nom, char *prenom, Arbre a){
+    Noeud TempArbre = *a;
+    Noeud TempNode;
+    if(a == NULL){
+        return creerNoeud(id, numero,nom, prenom);
+    }
+    else{
+        TempNode = TempArbre;
+        if(id > TempArbre->id){
+
+        }
+    }
+}
