@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "arbre_binaire.c"
 
-void main(){
-    Arbre a;
+void main()
+{
+    
 }
