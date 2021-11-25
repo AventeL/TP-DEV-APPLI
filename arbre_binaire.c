@@ -1,5 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include "ctype.h"
+#include "string.h"
 
 typedef struct noeud
 {
@@ -72,6 +74,23 @@ void afficherArbre(Arbre a, int nv)
         }
         printf("%d\n", a->id);
         afficherArbre(a->left, nv + 1);
+    }
+}
+
+int position(char *stringOne, char *stringTwo){
+    int i = 0;
+    //Renvoi 0 pour la gauche et 1 pour la droite
+    if(strlen(stringOne) == strlen(stringTwo)){
+        return -1;
+    }
+    while(toupper(stringOne[i]) == toupper(stringTwo[i])){
+        i = i + 1;
+    }
+    if(toupper(stringOne[i]) < toupper(stringTwo[i])){
+        return 0;
+    }
+    else{
+        return 1;
     }
 }
 
