@@ -6,7 +6,7 @@
 typedef struct noeud
 {
     int id;
-    int numero;
+    char *numero;
     char *nom;
     char *prenom;
     struct noeud *right;
@@ -15,7 +15,7 @@ typedef struct noeud
 
 typedef Noeud *Arbre;
 
-Arbre creerNoeud(int id, int numero, char *nom, char *prenom)
+Arbre creerNoeud(int id, char *numero, char *nom, char *prenom)
 {
     Arbre nouveau = (Arbre)malloc(sizeof(Noeud));
     if (nouveau)
@@ -77,45 +77,96 @@ void afficherArbre(Arbre a, int nv)
     }
 }
 
-int position(char *stringOne, char *stringTwo){
+void afficherNoeud(Noeud *a)
+{
+    printf("\n Id : %d\nNom : %s\nPrenom : %s\nTelephone : %s", a->id, a->nom, a->prenom, a->numero);
+}
+
+int position(char *stringOne, char *stringTwo)
+{
     int i = 0;
     //Renvoi 0 pour la gauche et 1 pour la droite
-    if(strlen(stringOne) == strlen(stringTwo)){
+    if (strlen(stringOne) == strlen(stringTwo))
+    {
         return -1;
     }
-    while(toupper(stringOne[i]) == toupper(stringTwo[i])){
+    while (toupper(stringOne[i]) == toupper(stringTwo[i]))
+    {
         i = i + 1;
     }
-    if(toupper(stringOne[i]) < toupper(stringTwo[i])){
+    if (toupper(stringOne[i]) < toupper(stringTwo[i]))
+    {
         return 0;
     }
-    else{
+    else
+    {
         return 1;
     }
 }
 
-Arbre inserer(Arbre a, int id, int numero, char *nom, char *prenom)
+Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom)
 {
     if (a == NULL)
     {
-        return creerNoeud(id, numero,nom, prenom);
+        return creerNoeud(id, numero, nom, prenom);
     }
     else if (id < a->id)
     {
-        if(a->left != NULL){
+        if (a->left != NULL)
+        {
             inserer(a->left, id, numero, nom, prenom);
         }
-        else{
-            a->left = creerNoeud(id, numero,nom, prenom);
+        else
+        {
+            a->left = creerNoeud(id, numero, nom, prenom);
         }
     }
     else if (id > a->id)
     {
-        if(a->right != NULL){
+        if (a->right != NULL)
+        {
             inserer(a->right, id, numero, nom, prenom);
         }
-        else{
+        else
+        {
             a->right = creerNoeud(id, numero, nom, prenom);
         }
     }
+}
+
+Arbre rechercherParId(Arbre a, int id)
+{
+    if (a == NULL)
+    {
+        return NULL;
+    }
+    else if (id < a->id)
+    {
+        return rechercherParId(a->left, id);
+    }
+    else if (id > a->id)
+    {
+        return rechercherParId(a->right, id);
+    }
+    else
+        return a;
+}
+
+Arbre rechercherParNom(Arbre a, char *nom)
+{
+    if (a == NULL)
+    {
+        return NULL;
+    }
+    else if (nom < a->nom)
+    {
+        return rechercherParNom(a->left, nom);
+    }
+    else if (nom > a->nom)
+    {
+
+        return rechercherParNom(a->right, nom);
+    }
+    else
+        return a;
 }
