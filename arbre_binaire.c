@@ -94,7 +94,6 @@ int position(char *stringOne, char *stringTwo){
     }
 }
 
-
 Arbre inserer(Arbre a, int id, int numero, char *nom, char *prenom)
 {
     if (a == NULL)
