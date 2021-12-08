@@ -140,7 +140,8 @@ Arbre rechercherParNom(Arbre a, char *nom)
     {
         return NULL;
     }
-    else if(a->nom == nom){
+    else if (a->nom == nom)
+    {
         return a;
     }
     else if (nom < a->nom)
@@ -150,5 +151,27 @@ Arbre rechercherParNom(Arbre a, char *nom)
     else if (nom > a->nom)
     {
         return rechercherParNom(a->right, nom);
-    }else return NULL;    
+    }
+    else
+        return NULL;
+}
+
+
+Arbre saisir(Arbre a)
+{
+    int id;
+    char *nom = malloc(50);
+    char *prenom = malloc(50);
+    char *num = malloc(10);
+
+        printf("\nId : ");
+        scanf("%d", &id);
+    
+    printf("\nNom : ");
+    scanf("%s", nom);
+    printf("\nPrénom : ");
+    scanf("%s", prenom);
+    printf("\nNum téléphone : ");
+    scanf("%s", num);
+    return inserer(a, id, num, nom, prenom);
 }
