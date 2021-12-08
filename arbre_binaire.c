@@ -134,29 +134,14 @@ Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom)
     }
 }
 
-Arbre rechercherParId(Arbre a, int id)
-{
-    if (a == NULL)
-    {
-        return NULL;
-    }
-    else if (id < a->id)
-    {
-        return rechercherParId(a->left, id);
-    }
-    else if (id > a->id)
-    {
-        return rechercherParId(a->right, id);
-    }
-    else
-        return a;
-}
-
 Arbre rechercherParNom(Arbre a, char *nom)
 {
     if (a == NULL)
     {
         return NULL;
+    }
+    else if(a->nom == nom){
+        return a;
     }
     else if (nom < a->nom)
     {
@@ -164,9 +149,6 @@ Arbre rechercherParNom(Arbre a, char *nom)
     }
     else if (nom > a->nom)
     {
-
         return rechercherParNom(a->right, nom);
-    }
-    else
-        return a;
+    }else return NULL;    
 }
