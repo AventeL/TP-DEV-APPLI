@@ -53,7 +53,7 @@ void afficherParOrdreDecroissant(Arbre a)
         {
             afficherParOrdreDecroissant(a->right);
         }
-        printf("Id: %d\nNom: %s\nPrenom: %s\numero de telephone: %d\n\n", a->id, a->nom, a->prenom, a->numero);
+        printf("Id: %d\nNom: %s\nPrenom: %s\nnumero de telephone: %s\n\n", a->id, a->nom, a->prenom, a->numero);
         if (a->left != NULL)
         {
             afficherParOrdreDecroissant(a->left);
@@ -153,4 +153,28 @@ void rechercherParNom(Arbre a, char *nom)
      printf("\nResultat de la recherche:\n");
      printf("\nImpossible de trouver la donnee cherchee\n");
     }
+}
+
+void saisir(Arbre a)
+{
+    int id;
+    char *nom = malloc(sizeof(char)*50);
+    char *prenom = malloc(sizeof(char)*50);
+    char *num = malloc(sizeof(char)*10);
+
+    printf("\nId : ");
+    scanf("%d", &id);
+    printf("\nNom : ");
+    scanf("%s", nom);
+    printf("\nPrenom : ");
+    scanf("%s", prenom);
+    printf("\nNum telephone : ");
+    scanf("%s", num);
+    while (strlen(num) != 10)
+    {
+        printf("Numéro Invalide");
+        printf("\nNum téléphone : ");
+        scanf("%s", num);
+    }
+    inserer(a, id, num, nom, prenom);
 }

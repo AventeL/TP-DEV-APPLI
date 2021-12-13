@@ -1,6 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include "arbre_binaire.h"
+#include "arbre_binaire.c"
 
 int main()
 {
@@ -16,9 +16,8 @@ int main()
     inserer(a, 8, "60311765", "Lealle", "Marie-jeanne");
     inserer(a, 9, "61033543", "Eyre", "Livia");
 
-    //rechercherParNom(a, "ERTY");
-    afficherArbre(a, 10);
     afficherParOrdreCroissant(a);
 
     return 0;
 }
+
