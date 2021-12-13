@@ -37,7 +37,7 @@ void afficherParOrdreCroissant(Arbre a)
         {
             afficherParOrdreCroissant(a->left);
         }
-        printf("Id: %d\nNom: %s\nPrenom: %s\nnumero de telephone: %d\n\n", a->id, a->nom, a->prenom, a->numero);
+        printf("Id: %d\nNom: %s\nPrenom: %s\nnumero de telephone: %s\n\n", a->id, a->nom, a->prenom, a->numero);
         if (a->right != NULL)
         {
             afficherParOrdreCroissant(a->right);
@@ -53,7 +53,7 @@ void afficherParOrdreDecroissant(Arbre a)
         {
             afficherParOrdreDecroissant(a->right);
         }
-        printf("Id: %d\nNom: %s\nPrenom: %s\nnumero de telephone: %d\n\n", a->id, a->nom, a->prenom, a->numero);
+        printf("Id: %d\nNom: %s\nPrenom: %s\numero de telephone: %d\n\n", a->id, a->nom, a->prenom, a->numero);
         if (a->left != NULL)
         {
             afficherParOrdreDecroissant(a->left);
@@ -79,18 +79,14 @@ void afficherArbre(Arbre a, int nv)
 
 void afficherNoeud(Noeud *a)
 {
-    printf("\n Id : %d\nNom : %s\nPrenom : %s\nTelephone : %s", a->id, a->nom, a->prenom, a->numero);
+    printf("\nId : %d\nNom : %s\nPrenom : %s\nTelephone : %s", a->id, a->nom, a->prenom, a->numero);
 }
 
 int position(char *stringOne, char *stringTwo)
 {
     int i = 0;
     //Renvoi 0 pour la gauche et 1 pour la droite
-    if (strlen(stringOne) == strlen(stringTwo))
-    {
-        return -1;
-    }
-    while (toupper(stringOne[i]) == toupper(stringTwo[i]))
+    while (toupper(stringOne[i]) == toupper(stringTwo[i]) && (toupper(stringOne[i+1]) != '\0') && (toupper(stringTwo[i+1]) != '\0'))
     {
         i = i + 1;
     }
@@ -110,7 +106,7 @@ Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom)
     {
         return creerNoeud(id, numero, nom, prenom);
     }
-    else if (id < a->id)
+    else if (position(nom, a->nom) == 0)
     {
         if (a->left != NULL)
         {
@@ -121,7 +117,7 @@ Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom)
             a->left = creerNoeud(id, numero, nom, prenom);
         }
     }
-    else if (id > a->id)
+    else if (position(nom, a->nom) == 1)
     {
         if (a->right != NULL)
         {
@@ -134,21 +130,27 @@ Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom)
     }
 }
 
-Arbre rechercherParNom(Arbre a, char *nom)
+void rechercherParNom(Arbre a, char *nom)
 {
     if (a == NULL)
     {
-        return NULL;
+        printf("\nPas de donnees dans l'arbre.\n");
     }
     else if(a->nom == nom){
-        return a;
+        printf("\nResultat de la recherche:\n");
+        afficherNoeud(a);
+        printf("\n");
     }
-    else if (nom < a->nom)
+    else if (nom < a->nom && a->left != NULL)
     {
         return rechercherParNom(a->left, nom);
     }
-    else if (nom > a->nom)
+    else if (nom > a->nom && a->right != NULL)
     {
         return rechercherParNom(a->right, nom);
-    }else return NULL;    
+    }else
+    {
+     printf("\nResultat de la recherche:\n");
+     printf("\nImpossible de trouver la donnee cherchee\n");
+    }
 }
