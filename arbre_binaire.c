@@ -20,6 +20,10 @@ Arbre creerNoeud(int id, char *numero, char *nom, char *prenom)
     Arbre nouveau = (Arbre)malloc(sizeof(Noeud));
     if (nouveau)
     {
+        nouveau->nom = malloc(sizeof(char)*50);
+        nouveau->prenom = malloc(sizeof(char)*50);
+        nouveau->numero = malloc(sizeof(char)*50);
+
         nouveau->id = id;
         nouveau->numero = numero;
         nouveau->nom = nom;
@@ -177,4 +181,20 @@ void saisir(Arbre a)
         scanf("%s", num);
     }
     inserer(a, id, num, nom, prenom);
+}
+
+void supprimerNoeud(){
+
+}
+
+void supprimerArbre(Noeud *a){
+    if (a != NULL)
+    {
+        supprimerArbre(a->left);
+        supprimerArbre(a->right);
+        free(a->nom);
+        free(a->numero);
+        free(a->prenom);
+        free(a);
+    }
 }

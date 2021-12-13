@@ -15,7 +15,7 @@ int main()
     inserer(a, 7, "65247491", "Valenta", "Karon");
     inserer(a, 8, "60311765", "Lealle", "Marie-jeanne");
     inserer(a, 9, "61033543", "Eyre", "Livia");
-
+    supprimerArbre(a);
     afficherParOrdreCroissant(a);
 
     return 0;
