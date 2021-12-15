@@ -3,6 +3,8 @@
 #include "ctype.h"
 #include "string.h"
 
+#define TAILLE_MAX 80
+
 typedef struct noeud
 {
     int id;
@@ -177,4 +179,96 @@ void saisir(Arbre a)
         scanf("%s", num);
     }
     inserer(a, id, num, nom, prenom);
+}
+
+void ParseMaLigne(char * ligne, char ** array, int nbLignes){
+    sscanf(ligne, "%49s %49s %49s[^\n]", array[0], array[1], array[2]);
+}
+
+void lire_fichier(Arbre a){
+    /*
+        Order: Nom Prenom Numero
+    */
+    char * nomDuFichier = (char *) malloc (500 * sizeof(char));
+    char * CheminFinal;
+    size_t TailleCheminFinal;
+
+    char * ligne = (char *) malloc (500 * sizeof(char));
+    int nbLignes = 0, count = 0;
+
+
+    printf("Saisir le nom du fichier (SANS L'EXTENSION) dans le repertoire data: ");
+    scanf("%s", nomDuFichier);
+
+    TailleCheminFinal = strlen("./data/") + strlen(nomDuFichier) + strlen(".txt") + 1;
+    CheminFinal = (char *) malloc (TailleCheminFinal * sizeof(char));
+    strcpy(CheminFinal, "./data/");
+    strcat(CheminFinal, nomDuFichier);
+    strcat(CheminFinal, ".txt");
+
+    printf("\nSaisir le nombre de lignes du fichier: ");
+    scanf("%d", &nbLignes);
+    FILE *fichier = fopen (CheminFinal, "r");
+
+    char ** array =(char **)malloc(nbLignes*sizeof(char *));
+    for (int i=0;i<nbLignes;i++)
+    {
+        array[i]=(char*)malloc(3*sizeof(char));
+    }
+
+    while(fgets(ligne, TAILLE_MAX, fichier) != NULL && count < nbLignes){
+
+        char ** array =(char **)malloc(nbLignes*sizeof(char *));
+        for (int i=0;i<nbLignes;i++)
+        {
+            array[i]=(char*)malloc(3*sizeof(char));
+        }
+
+        ParseMaLigne(ligne, array, nbLignes);
+
+        inserer(a, count, array[2], array[0], array[1]);
+
+        count++;
+    }
+
+    fclose(fichier);
+}
+
+void ecrire_fichier(Arbre a){
+    char * nomDuFichier = (char *) malloc (500 * sizeof(char));
+    char * CheminFinal = (char *) malloc (550 * sizeof(char));
+    strcpy(CheminFinal, "./data/");
+
+    printf("Saisir le nom du fichier de sortie (SANS L'EXTENSION): ");
+    scanf("%s", nomDuFichier);
+    strcat(nomDuFichier, ".txt");
+    strcat(CheminFinal, nomDuFichier);
+    free(nomDuFichier);
+
+    ecrire_dans_fichier(a, CheminFinal);
+    free(CheminFinal);
+}
+
+void ecrire_dans_fichier(Arbre a, char * Chemin)
+{
+    FILE *fichier = fopen (Chemin, "a+");
+
+    if (a != NULL)
+    {
+        if (a->left != NULL)
+        {
+            fprintf(fichier,"%s %s %s\n",a->nom, a->prenom, a->numero);
+            fclose(fichier);
+            ecrire_dans_fichier(a->left, Chemin);
+        }
+        if (a->right != NULL)
+        {
+            fprintf(fichier,"%s %s %s\n",a->nom, a->prenom, a->numero);
+            fclose(fichier);
+            ecrire_dans_fichier(a->right, Chemin);
+        }
+        fprintf(fichier,"%s %s %s\n",a->nom, a->prenom, a->numero);
+    }
+
+    fclose(fichier);
 }
