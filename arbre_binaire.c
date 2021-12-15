@@ -20,9 +20,9 @@ Arbre creerNoeud(int id, char *numero, char *nom, char *prenom)
     Arbre nouveau = (Arbre)malloc(sizeof(Noeud));
     if (nouveau)
     {
-        nouveau->nom = malloc(sizeof(char)*50);
-        nouveau->prenom = malloc(sizeof(char)*50);
-        nouveau->numero = malloc(sizeof(char)*50);
+        nouveau->nom = malloc(sizeof(char) * 50);
+        nouveau->prenom = malloc(sizeof(char) * 50);
+        nouveau->numero = malloc(sizeof(char) * 50);
 
         nouveau->id = id;
         nouveau->numero = numero;
@@ -90,7 +90,7 @@ int position(char *stringOne, char *stringTwo)
 {
     int i = 0;
     //Renvoi 0 pour la gauche et 1 pour la droite
-    while (toupper(stringOne[i]) == toupper(stringTwo[i]) && (toupper(stringOne[i+1]) != '\0') && (toupper(stringTwo[i+1]) != '\0'))
+    while (toupper(stringOne[i]) == toupper(stringTwo[i]) && (toupper(stringOne[i + 1]) != '\0') && (toupper(stringTwo[i + 1]) != '\0'))
     {
         i = i + 1;
     }
@@ -140,7 +140,8 @@ void rechercherParNom(Arbre a, char *nom)
     {
         printf("\nPas de donnees dans l'arbre.\n");
     }
-    else if(a->nom == nom){
+    else if (a->nom == nom)
+    {
         printf("\nResultat de la recherche:\n");
         afficherNoeud(a);
         printf("\n");
@@ -152,19 +153,20 @@ void rechercherParNom(Arbre a, char *nom)
     else if (nom > a->nom && a->right != NULL)
     {
         return rechercherParNom(a->right, nom);
-    }else
+    }
+    else
     {
-     printf("\nResultat de la recherche:\n");
-     printf("\nImpossible de trouver la donnee cherchee\n");
+        printf("\nResultat de la recherche:\n");
+        printf("\nImpossible de trouver la donnee cherchee\n");
     }
 }
 
 void saisir(Arbre a)
 {
     int id;
-    char *nom = malloc(sizeof(char)*50);
-    char *prenom = malloc(sizeof(char)*50);
-    char *num = malloc(sizeof(char)*10);
+    char *nom = malloc(sizeof(char) * 50);
+    char *prenom = malloc(sizeof(char) * 50);
+    char *num = malloc(sizeof(char) * 10);
 
     printf("\nId : ");
     scanf("%d", &id);
@@ -183,18 +185,46 @@ void saisir(Arbre a)
     inserer(a, id, num, nom, prenom);
 }
 
-void supprimerNoeud(){
-
+void supprimerNoeud()
+{
 }
 
-void supprimerArbre(Noeud *a){
-    if (a != NULL)
+void supprimerParNom(Noeud **a, char *nom)
+{
+    if (*a != NULL)
     {
-        supprimerArbre(a->left);
-        supprimerArbre(a->right);
-        free(a->nom);
-        free(a->numero);
-        free(a->prenom);
-        free(a);
+        if ((*a)->nom == nom)
+        {
+
+            if ((*a)->left == NULL && (*a)->right == NULL)
+            {
+                free(*a);
+                *a = NULL;
+            }
+            else if ((*a)->right == NULL)
+            {
+                Noeud *memo = *a;
+                *a = (*a)->right;
+                free(memo);
+            }
+            else if ((*a)->left == NULL)
+            {
+                Noeud *memo = *a;
+                *a = (*a)->left;
+                free(memo);
+            }
+            else
+            {
+                Noeud *memo = *a;
+                *a = (*a)->left;
+                supprimerParNom(&(*a)->right, nom);
+                memo->left = (*a)->left;
+                memo->right = (*a)->right;
+                free(*a);
+                *a = memo;
+            }
+        }else if(position((*a)->nom, nom) == 0){
+            supprimerParNom(&(*a)->right, nom);
+        }else supprimerParNom(&(*a)->left, nom);
     }
 }
