@@ -19,6 +19,10 @@ int main()
     //supprimerParNom(&a, "Valenta");
 
     printf("\naffichage\n");
+ 
+    /*lire_fichier(a);
+    ecrire_fichier(a);*/
+  
     afficherParOrdreCroissant(a);
     supprimerParNom(&a, "Eyre");
     afficherParOrdreCroissant(a);
