@@ -14,10 +14,13 @@ int main()
     inserer(a, 6, "62940528", "Schuster", "Myriam");
     inserer(a, 7, "65247491", "Valenta", "Karon");
     inserer(a, 8, "60311765", "Lealle", "Marie-jeanne");
-    inserer(a, 9, "61033543", "Eyre", "Livia"); afficherArbre(a, 3);
-    supprimerParNom(&a, "Buttler");
-   
+    inserer(a, 9, "61033543", "Eyre", "Livia");
+    afficherArbre(a, 3);
+    //supprimerParNom(&a, "Valenta");
+
     printf("\naffichage\n");
+    afficherParOrdreCroissant(a);
+    supprimerParNom(&a, "Eyre");
     afficherParOrdreCroissant(a);
     afficherArbre(a, 3);
 

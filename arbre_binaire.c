@@ -134,6 +134,36 @@ Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom)
     }
 }
 
+Arbre insererNoeud(Arbre a, Arbre n)
+{
+    if (a == NULL)
+    {
+
+    }
+    else if (position(n->nom, a->nom) == 0)
+    {
+        if (a->left != NULL)
+        {
+            insererNoeud(a->left, n);
+        }
+        else
+        {
+            a->left = n;
+        }
+    }
+    else if (position(n->nom, a->nom) == 1)
+    {
+        if (a->right != NULL)
+        {
+            insererNoeud(a->right, n);
+        }
+        else
+        {
+            a->right = n;
+        }
+    }
+}
+
 void rechercherParNom(Arbre a, char *nom)
 {
     if (a == NULL)
@@ -185,43 +215,31 @@ void saisir(Arbre a)
     inserer(a, id, num, nom, prenom);
 }
 
-void supprimerNoeud()
-{
-}
-
 void supprimerParNom(Noeud **a, char *nom)
 {
     if (*a != NULL)
     {
         if ((*a)->nom == nom)
         {
-
-            if ((*a)->left == NULL && (*a)->right == NULL)
-            {
+            if((*a)->left == NULL && (*a)->right == NULL){
                 free(*a);
-                *a = NULL;
+                (*a) = NULL;
             }
-            else if ((*a)->right == NULL)
-            {
-                Noeud *memo = *a;
-                *a = (*a)->right;
-                free(memo);
-            }
-            else if ((*a)->left == NULL)
-            {
-                Noeud *memo = *a;
-                *a = (*a)->left;
-                free(memo);
-            }
-            else
-            {
-                Noeud *memo = *a;
-                *a = (*a)->left;
-                supprimerParNom(&(*a)->right, nom);
-                memo->left = (*a)->left;
-                memo->right = (*a)->right;
+            else if((*a)->left == NULL){
+                Noeud *temp = (*a)->right;
                 free(*a);
-                *a = memo;
+                (*a) = temp;
+            }
+            else if((*a)->right == NULL){
+                Noeud *temp = (*a)->left;
+                free(*a);
+                (*a) = temp;
+            }
+            else{
+                Arbre gauche = (*a)->left;
+                Arbre droite = (*a)->right;
+                (*a) = droite;
+                insererNoeud((*a), gauche);
             }
         }else if(position((*a)->nom, nom) == 0){
             supprimerParNom(&(*a)->right, nom);
