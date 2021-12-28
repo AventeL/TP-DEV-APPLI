@@ -178,11 +178,11 @@ void rechercherParNom(Arbre a, char *nom)
         afficherNoeud(a);
         printf("\n");
     }
-    else if (nom < a->nom && a->left != NULL)
+    else if (position(nom, a->nom) == 0 && a->left != NULL)
     {
         return rechercherParNom(a->left, nom);
     }
-    else if (nom > a->nom && a->right != NULL)
+    else if (position(nom, a->nom) == 1 && a->right != NULL)
     {
         return rechercherParNom(a->right, nom);
     }
@@ -247,7 +247,7 @@ void supprimerParNom(Noeud **a, char *nom)
             supprimerParNom(&(*a)->right, nom);
         }else supprimerParNom(&(*a)->left, nom);
     }
-  
+
 void ParseMaLigne(char * ligne, char ** array, int nbLignes){
     sscanf(ligne, "%49s %49s %49s[^\n]", array[0], array[1], array[2]);
 }
