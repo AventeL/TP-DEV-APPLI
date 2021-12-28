@@ -3,7 +3,9 @@
 #include "ctype.h"
 #include "string.h"
 
-#define TAILLE_MAX 80
+#define TAILLE_MAX 80 //Taille max d'un nom dans la lecture depuis fichier
+int IDcounter = 0;
+
 
 typedef struct noeud
 {
@@ -17,7 +19,7 @@ typedef struct noeud
 
 typedef Noeud *Arbre;
 
-Arbre creerNoeud(int id, char *numero, char *nom, char *prenom)
+Arbre creerNoeud(char *numero, char *nom, char *prenom)
 {
     Arbre nouveau = (Arbre)malloc(sizeof(Noeud));
     if (nouveau)
@@ -26,11 +28,12 @@ Arbre creerNoeud(int id, char *numero, char *nom, char *prenom)
         nouveau->prenom = malloc(sizeof(char) * 50);
         nouveau->numero = malloc(sizeof(char) * 50);
 
-        nouveau->id = id;
+        nouveau->id = IDcounter;
         nouveau->numero = numero;
         nouveau->nom = nom;
         nouveau->prenom = prenom;
         nouveau->right = nouveau->left = NULL;
+        IDcounter++;
     }
     return nouveau;
 }
@@ -106,32 +109,32 @@ int position(char *stringOne, char *stringTwo)
     }
 }
 
-Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom)
+Arbre inserer(Arbre a, char *numero, char *nom, char *prenom)
 {
     if (a == NULL)
     {
-        return creerNoeud(id, numero, nom, prenom);
+        return creerNoeud(numero, nom, prenom);
     }
     else if (position(nom, a->nom) == 0)
     {
         if (a->left != NULL)
         {
-            inserer(a->left, id, numero, nom, prenom);
+            inserer(a->left, numero, nom, prenom);
         }
         else
         {
-            a->left = creerNoeud(id, numero, nom, prenom);
+            a->left = creerNoeud(numero, nom, prenom);
         }
     }
     else if (position(nom, a->nom) == 1)
     {
         if (a->right != NULL)
         {
-            inserer(a->right, id, numero, nom, prenom);
+            inserer(a->right, numero, nom, prenom);
         }
         else
         {
-            a->right = creerNoeud(id, numero, nom, prenom);
+            a->right = creerNoeud(numero, nom, prenom);
         }
     }
 }
@@ -214,7 +217,7 @@ void saisir(Arbre a)
         printf("\nNum téléphone : ");
         scanf("%s", num);
     }
-    inserer(a, id, num, nom, prenom);
+    inserer(a, num, nom, prenom);
 }
 
 void supprimerParNom(Noeud **a, char *nom)
@@ -294,7 +297,7 @@ void lire_fichier(Arbre a){
 
         ParseMaLigne(ligne, array, nbLignes);
 
-        inserer(a, count, array[2], array[0], array[1]);
+        inserer(a, array[2], array[0], array[1]);
 
         count++;
     }

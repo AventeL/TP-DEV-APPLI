@@ -10,7 +10,7 @@ void afficherNoeud(Noeud *a);
 
 int position(char *stringOne, char *stringTwo);
 
-Arbre inserer(Arbre a, int id, char *numero, char *nom, char *prenom);
+Arbre inserer(Arbre a, char *numero, char *nom, char *prenom);
 
 Arbre insererNoeud(Arbre a, Arbre n);
 
