@@ -247,7 +247,8 @@ void supprimerParNom(Noeud **a, char *nom)
             supprimerParNom(&(*a)->right, nom);
         }else supprimerParNom(&(*a)->left, nom);
     }
-  
+}
+
 void ParseMaLigne(char * ligne, char ** array, int nbLignes){
     sscanf(ligne, "%49s %49s %49s[^\n]", array[0], array[1], array[2]);
 }
@@ -301,21 +302,6 @@ void lire_fichier(Arbre a){
     fclose(fichier);
 }
 
-void ecrire_fichier(Arbre a){
-    char * nomDuFichier = (char *) malloc (500 * sizeof(char));
-    char * CheminFinal = (char *) malloc (550 * sizeof(char));
-    strcpy(CheminFinal, "./data/");
-
-    printf("Saisir le nom du fichier de sortie (SANS L'EXTENSION): ");
-    scanf("%s", nomDuFichier);
-    strcat(nomDuFichier, ".txt");
-    strcat(CheminFinal, nomDuFichier);
-    free(nomDuFichier);
-
-    ecrire_dans_fichier(a, CheminFinal);
-    free(CheminFinal);
-}
-
 void ecrire_dans_fichier(Arbre a, char * Chemin)
 {
     FILE *fichier = fopen (Chemin, "a+");
@@ -338,4 +324,19 @@ void ecrire_dans_fichier(Arbre a, char * Chemin)
     }
 
     fclose(fichier);
+}
+
+void ecrire_fichier(Arbre a){
+    char * nomDuFichier = (char *) malloc (500 * sizeof(char));
+    char * CheminFinal = (char *) malloc (550 * sizeof(char));
+    strcpy(CheminFinal, "./data/");
+
+    printf("Saisir le nom du fichier de sortie (SANS L'EXTENSION): ");
+    scanf("%s", nomDuFichier);
+    strcat(nomDuFichier, ".txt");
+    strcat(CheminFinal, nomDuFichier);
+    free(nomDuFichier);
+
+    ecrire_dans_fichier(a, CheminFinal);
+    free(CheminFinal);
 }
