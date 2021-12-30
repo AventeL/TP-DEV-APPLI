@@ -17,7 +17,5 @@ int main()
     //afficherArbre(a, 3);
     //afficherParOrdreDecroissant(a);
     //ecrire_fichier(a);
-
     return 0;
 }
-
