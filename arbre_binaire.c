@@ -109,32 +109,32 @@ int position(char *stringOne, char *stringTwo)
     }
 }
 
-Arbre inserer(Arbre a, char *numero, char *nom, char *prenom)
+Arbre inserer(Arbre * a, char *numero, char *nom, char *prenom)
 {
-    if (a == NULL)
+    if ((*a) == NULL)
     {
-        return creerNoeud(numero, nom, prenom);
+        (*a) = creerNoeud(numero, nom, prenom);
     }
-    else if (position(nom, a->nom) == 0)
+    else if (position(nom, (*a)->nom) == 0)
     {
-        if (a->left != NULL)
+        if ((*a)->left != NULL)
         {
-            inserer(a->left, numero, nom, prenom);
+            inserer(&(*a)->left, numero, nom, prenom);
         }
         else
         {
-            a->left = creerNoeud(numero, nom, prenom);
+            (*a)->left = creerNoeud(numero, nom, prenom);
         }
     }
-    else if (position(nom, a->nom) == 1)
+    else if (position(nom, (*a)->nom) == 1)
     {
-        if (a->right != NULL)
+        if ((*a)->right != NULL)
         {
-            inserer(a->right, numero, nom, prenom);
+            inserer(&(*a)->right, numero, nom, prenom);
         }
         else
         {
-            a->right = creerNoeud(numero, nom, prenom);
+            (*a)->right = creerNoeud(numero, nom, prenom);
         }
     }
 }
@@ -196,15 +196,12 @@ void rechercherParNom(Arbre a, char *nom)
     }
 }
 
-void saisir(Arbre a)
+void saisir(Arbre * a)
 {
-    int id;
     char *nom = malloc(sizeof(char) * 50);
     char *prenom = malloc(sizeof(char) * 50);
     char *num = malloc(sizeof(char) * 10);
 
-    printf("\nId : ");
-    scanf("%d", &id);
     printf("\nNom : ");
     scanf("%s", nom);
     printf("\nPrenom : ");
@@ -213,19 +210,21 @@ void saisir(Arbre a)
     scanf("%s", num);
     while (strlen(num) != 10)
     {
-        printf("Numéro Invalide");
-        printf("\nNum téléphone : ");
+        printf("Numero Invalide");
+        printf("\nNum telephone : ");
         scanf("%s", num);
     }
     inserer(a, num, nom, prenom);
 }
 
-void supprimerParNom(Noeud **a, char *nom)
+void supprimerParNom(Arbre * a, char *nom)
 {
     if (*a != NULL)
     {
+        printf("Loop - %s\n", (*a)->nom);
         if ((*a)->nom == nom)
         {
+            printf("Found\n\n");
             if((*a)->left == NULL && (*a)->right == NULL){
                 free(*a);
                 (*a) = NULL;
@@ -256,7 +255,7 @@ void ParseMaLigne(char * ligne, char ** array, int nbLignes){
     sscanf(ligne, "%49s %49s %49s[^\n]", array[0], array[1], array[2]);
 }
 
-void lire_fichier(Arbre a){
+void lire_fichier(Arbre * a){
     /*
         Order: Nom Prenom Numero
     */
