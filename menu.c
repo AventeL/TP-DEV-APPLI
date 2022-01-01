@@ -6,8 +6,7 @@
 void menu(){
     int choix;
     char *nom;
-    Arbre a;
-    a = creerNoeud("6523458965", "AZERT", "ERTYUI");
+    Arbre a = NULL;
     do{
             printf("\nMenu\n------- \n");
             printf("1.Ajouter\n2.Supprimer\n3.Afficher\n4.Rechercher\n5.Quitter\n");
@@ -21,11 +20,11 @@ void menu(){
                     switch(choix){
                     case 1 : //inserer clavier
                         system("cls");
-                        saisir(a);
+                        saisir(&a);
                         break;
                     case 2 : //inserer fichier
                         system("cls");
-                        lire_fichier(a);
+                        lire_fichier(&a);
                         break;
                     case 3 : //retour
                         system("cls");

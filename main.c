@@ -1,26 +1,9 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include "arbre_binaire.h"
+#include "menu.c"
 
 int main()
 {
-    Arbre a = NULL;
-
-    //saisir(&a);
-    inserer(&a, "0654235986", "Testeur2", "Testeur2");
-    //rechercherParNom(a, "Testeur");
-    lire_fichier(&a);
-    //inserer(&a, "0654235988", "Testeur", "Testeur");
-    printf("\n-------------------\n");
-    afficherParOrdreCroissant(a);
-    supprimerParNom(&a, "test5");
-    printf("\n-------------------\n");
-    afficherParOrdreCroissant(a);
-    rechercherParNom(a, "test");
-
-    //afficherParOrdreCroissant(a);
-    //afficherArbre(a, 3);
-    //afficherParOrdreDecroissant(a);
-    //ecrire_fichier(a);
+    menu();
     return 0;
 }
