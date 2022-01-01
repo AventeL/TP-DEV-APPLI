@@ -3,12 +3,12 @@
 #include "arbre_binaire.h"
 
 
-    void menu(){
+void menu(){
     int choix;
     char *nom;
     Arbre a;
-    a = creerNoeud(0,"6523458965", "AZERT", "ERTYUI");
-   do{
+    a = creerNoeud("6523458965", "AZERT", "ERTYUI");
+    do{
             printf("\nMenu\n------- \n");
             printf("1.Ajouter\n2.Supprimer\n3.Afficher\n4.Rechercher\n5.Quitter\n");
             scanf("%d",&choix);

@@ -6,7 +6,6 @@
 #define TAILLE_MAX 80 //Taille max d'un nom dans la lecture depuis fichier
 int IDcounter = 0;
 
-
 typedef struct noeud
 {
     int id;
@@ -175,7 +174,7 @@ void rechercherParNom(Arbre a, char *nom)
     {
         printf("\nPas de donnees dans l'arbre.\n");
     }
-    else if (a->nom == nom)
+    else if (strcmp(a->nom, nom) == 0)
     {
         printf("\nResultat de la recherche:\n");
         afficherNoeud(a);
@@ -217,12 +216,13 @@ void saisir(Arbre * a)
     inserer(a, num, nom, prenom);
 }
 
-void supprimerParNom(Arbre * a, char *nom)
+void supprimerParNom(Arbre *a, char *nom)
 {
+    
     if (*a != NULL)
     {
         printf("Loop - %s\n", (*a)->nom);
-        if ((*a)->nom == nom)
+        if (strcmp((*a)->nom, nom) == 0)
         {
             printf("Found\n\n");
             if((*a)->left == NULL && (*a)->right == NULL){
@@ -252,7 +252,7 @@ void supprimerParNom(Arbre * a, char *nom)
 }
 
 void ParseMaLigne(char * ligne, char ** array, int nbLignes){
-    sscanf(ligne, "%49s %49s %49s[^\n]", array[0], array[1], array[2]);
+    sscanf(ligne, "%50s %50s %50s[^\n]", array[0], array[1], array[2]);
 }
 
 void lire_fichier(Arbre * a){
@@ -300,7 +300,6 @@ void lire_fichier(Arbre * a){
 
         count++;
     }
-
     fclose(fichier);
 }
 

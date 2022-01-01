@@ -6,6 +6,8 @@ void afficherParOrdreDecroissant(Arbre a);
 
 void afficherArbre(Arbre a, int nv);
 
+Arbre creerNoeud(char *numero, char *nom, char *prenom);
+
 void afficherNoeud(Noeud *a);
 
 int position(char *stringOne, char *stringTwo);

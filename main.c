@@ -11,7 +11,12 @@ int main()
     //rechercherParNom(a, "Testeur");
     lire_fichier(&a);
     //inserer(&a, "0654235988", "Testeur", "Testeur");
+    printf("\n-------------------\n");
+    afficherParOrdreCroissant(a);
     supprimerParNom(&a, "test5");
+    printf("\n-------------------\n");
+    afficherParOrdreCroissant(a);
+    rechercherParNom(a, "test");
 
     //afficherParOrdreCroissant(a);
     //afficherArbre(a, 3);
