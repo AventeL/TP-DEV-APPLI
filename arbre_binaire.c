@@ -216,15 +216,12 @@ void saisir(Arbre * a)
     inserer(a, num, nom, prenom);
 }
 
-void supprimerParNom(Arbre *a, char *nom)
+void supprimerParNom(Arbre * a, char *nom)
 {
-    
     if (*a != NULL)
     {
-        printf("Loop - %s\n", (*a)->nom);
-        if (strcmp((*a)->nom, nom) == 0)
+        if(strcmp((*a)->nom, nom) == 0)
         {
-            printf("Found\n\n");
             if((*a)->left == NULL && (*a)->right == NULL){
                 free(*a);
                 (*a) = NULL;
@@ -247,12 +244,14 @@ void supprimerParNom(Arbre *a, char *nom)
             }
         }else if(position((*a)->nom, nom) == 0){
             supprimerParNom(&(*a)->right, nom);
-        }else supprimerParNom(&(*a)->left, nom);
+        }else{
+            supprimerParNom(&(*a)->left, nom);
+        }
     }
 }
 
 void ParseMaLigne(char * ligne, char ** array, int nbLignes){
-    sscanf(ligne, "%50s %50s %50s[^\n]", array[0], array[1], array[2]);
+    sscanf(ligne, "%49s %49s %49s[^\n]", array[0], array[1], array[2]);
 }
 
 void lire_fichier(Arbre * a){

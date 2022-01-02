@@ -6,6 +6,7 @@
 void menu(){
     int choix;
     char *nom;
+    nom = (char *) malloc(50 * sizeof(char));
     Arbre a = NULL;
     do{
             printf("\nMenu\n------- \n");
@@ -34,8 +35,9 @@ void menu(){
                 break;
             case 2 : //Supprimer
                 printf("Saisir le nom de la personne que vous souhaitez supprimer : ");
-                scanf("%s",&nom);
+                scanf("%s",nom);
                 supprimerParNom(&a,nom);
+                nom = NULL;
                 break;
             case 3 : //Afficher
                     system("cls");
@@ -59,8 +61,9 @@ void menu(){
             case 4 : //Rechercher
                 system("cls");
                 printf("Saisir le nom de la personne que vous souhaitez rechercher : ");
-                scanf("%s",&nom);
+                scanf("%s",nom);
                 rechercherParNom(a, nom);
+                nom = NULL;
                 break;
             case 5 : //Quitter
                 break;
