@@ -10,7 +10,7 @@ void menu(){
     Arbre a = NULL;
     do{
             printf("\nMenu\n------- \n");
-            printf("1.Ajouter\n2.Supprimer\n3.Afficher\n4.Rechercher\n5.Quitter\n");
+            printf("1.Ajouter\n2.Supprimer\n3.Afficher\n4.Rechercher\n5.Sauvegarder\n6.Quitter\n");
             scanf("%d",&choix);
             switch(choix){
             case 1 :
@@ -63,10 +63,14 @@ void menu(){
                 scanf("%s",nom);
                 rechercherParNom(a, nom);
                 break;
-            case 5 : //Quitter
+            case 5:
+                system("cls");
+                ecrire_fichier(a);
+                printf("\nSauvegarde reussi !\n");
+            case 6 : //Quitter
                 break;
-            default: printf("Il faut saisir un choix entre 1 et 5");
+            default: printf("Il faut saisir un choix entre 1 et 6");
                 break;
             }
-        } while(choix != 5);
+        } while(choix != 6);
     }
